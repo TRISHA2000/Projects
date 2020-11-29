@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .login__input--commonBox {
+            background-color: blue;
+            height: 80px;
+            width: 300px;
+            margin-bottom: 15px;
+        }
+
+        #login__input--box {
+            background-color: lightblue;
+            color: white;
+        }
+
+    </style>
+    
+    <script src="./server"></script>
+    <script>
+        function facebookBox() {
+            var name = document.getElementById("login__input--userName").Value
+            var password = document.getElementById("login__input--password").Value
+
+            console.log(name);
+            console.log(password);
+        }
+        
+
+    </script>
+
+</head>
+
+<body>
+    <div>
+        <input id="login__input--userName" type="text" class="login__input--commonBox">
+    </div>
+    <div>
+        <input id="login__input--password" type="text" class="login__input--commonBox">
+
+    </div>
+    <div>
+        <button type="text" id="login__input--box" class="login__input--commonBox" onclick="facebook()">LOG IN</button>
+    </div>
+</body>
+
+</html>
