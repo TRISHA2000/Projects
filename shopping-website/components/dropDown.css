@@ -1,0 +1,20 @@
+.dropdown-btn-wrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown-list-wrapper {
+    display: none;
+    position: absolute;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.dropdown {
+    position: relative;
+}
+
+

@@ -1,0 +1,211 @@
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+}
+
+html * {
+    text-decoration: none;
+    outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    border: none;
+    border-spacing: 0px;
+}
+
+td {
+    vertical-align: top;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+
+#header-photo {
+    width: 140px; 
+    height: 40px; 
+}
+
+.header-box {
+    background-color: #2c3842;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 17px;
+}
+
+#header-middle-content{
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 2px 5px;
+}
+
+#header-text{
+    border: none;
+    outline: none;
+}
+
+.relative-wrapper {
+    position: relative;
+}
+
+#user-icon{
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+    padding: 14px 0px;
+}
+
+.middle-portion{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.tabel-prop-reset {
+    vertical-align: top;
+    text-align: start;
+}
+
+.left-part {
+    height: 100%;
+    width: 300px;
+    background-color:#99aae5;
+    flex-shrink: 0;
+}
+
+.side-portion{
+    height: 100%;
+    padding: 12px;
+    display: flex;
+    width: 938px;
+    /* text-align: center; */
+}
+
+.boxWrapped {
+    display: flex;
+    align-items: center;
+    width: 70px;
+    margin-top: 15px;
+}
+
+.divBox {
+    background-color: #15a8f2;
+    border-radius: 5px 0px 0px 5px;
+    padding: 9px;
+    width: 84px;
+    color: white;
+    cursor: pointer;
+}
+
+#divBoxSide {
+    background-color: #527e8e;
+    border-left: 2px solid #465356;
+    border-radius: 0px 5px 5px 0px;
+    padding: 9px 9px;
+    color: white;
+}
+
+.relative-wrapper {
+    position: relative;
+}
+
+li:hover {
+    background-color: #4680dd;
+    color: white;
+    cursor: pointer;
+}
+
+li {
+    padding: 5px 15px;
+}
+
+/* 
+    Look and feel CSS for dropdown starts
+*/
+
+.header-box .dropdown-list-wrapper {
+    right: 0;
+    box-shadow: 0px 2px 7px 2px #2c3842;
+    background-color: #2c3842;
+    width: 150px;
+}
+
+.header-box .dropdown-list-wrapper li {
+    padding: 10px 25px;
+    border-bottom: 1px solid #aaaaaa;
+    cursor: pointer;
+    color: white;
+}
+
+.left-part .dropdown-btn-wrapper {
+    width: 70px;
+}
+
+.left-part .dropdown-btn-label {
+    background-color: #15a8f2;
+    border-radius: 5px 0px 0px 5px;
+    padding: 9px;
+    width: 84px;
+    color: white;
+}
+
+.left-part .dropdown-btn-caret {
+    background-color: #527e8e;
+    border-left: 2px solid #465356;
+    border-radius: 0px 5px 5px 0px;
+    padding: 9px 9px;
+    color: white;
+}
+
+.left-part .dropdown-list-wrapper {
+    border: 1px solid black;
+    border: 1px solid black;
+    background-color: white;
+    box-shadow: 1px 0px 1px 0px;
+}
+/* 
+    Look and feel CSS for dropdown ends
+*/
+
+.component-upper-gap  {
+    margin-top: 10px;
+}
+
+.left-choose-section {
+    border-top: 1px solid #e2e1f4;
+    padding: 20px;
+}
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+.color-item{
+    margin-bottom: 4px;
+}
+
+.dress-color {
+    padding: 0px 0px 0px 18px;
+    margin-right: 7px;
+    border-radius: 50%;
+}
+
+.dress-image-item {
+    width: 210px;
+     height: 300px;
+}
+
+.item-color{
+    background-color:#8c94ce;
+}

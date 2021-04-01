@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="./style.css" rel="stylesheet" type="text/css">
+    <link href="./lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="./components/dropDown.css" rel="stylesheet" type="text/css">
+
+    <script src="./jquery-3.5.1.js"></script>
+
+    <script src="./components/dropDowm.js"></script>
+    <script>
+        var selecter = [];
+
+        function loadAparealList(gender) {
+            var customUrl;
+
+            switch (gender) {
+                case 'men':
+                    customUrl = 'http://localhost:8080/menItems';
+                    break;
+
+                case 'women':
+                    customUrl = 'http://localhost:8080/womenItems';
+                    break;
+
+                default:
+                    customUrl = 'http://localhost:8080/menItems';
+                    break;
+            }
+
+            $("ul#gender-apparel-list").html('<li>Loading...</li>');
+
+            $.ajax({
+                url: customUrl,
+                method: 'GET',
+                success: function (data) {
+                    console.log(data);
+                    $("ul#gender-apparel-list").html('');
+
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+                        var li = $('<li>' + data[i] + '</li>');
+
+                        $("ul#gender-apparel-list").append(li);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+
+
+        }
+
+        function selectiveShow(colorClass) {
+            selecter.push(colorClass); //selector a color add korbe
+            console.log(selecter);
+            for (var i = 0; i <= selecter.length; i++) {
+                $(".dress-image-item" + selecter[i]).show();
+            }
+
+            $.ajax({
+                url: "/dressesImage",
+                method: "post",
+                //data should always be sent as serialized data
+                data: {
+                    colors: selecter
+                },
+                success: function (data) {
+                    // console.log(data);
+                    $("#dresses-container").html('');
+                    for (var i = 0; i < data.length; i++) {
+                        //console.log(data[i]);
+                        var img = $('<img class="dress-image-item" src="/images/dresses/' + data[i] + '"</img>');
+                        $("#dresses-container").append(img);
+                        console.log(img);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+
+            })
+        }
+
+        function selectiveHide(colorClass) {
+            var colorIndex = selecter.indexOf(colorClass);
+            selecter.splice(colorIndex, 1);  //selector theke color remove
+            console.log(selecter);
+            if (selecter.length === 0) {
+                $(".dress-image-item").show();
+            } else {
+                for (var i = 0; i <= selecter.length; i++) {
+                    $(".dress-image-item" + selecter[i]).show();
+                }
+            }
+
+        }
+
+        function showDress(dressColor, event) {
+
+            $(".dress-image-item").hide();
+
+            console.log(event.target.checked);
+
+            switch (dressColor) {
+                case "black":
+                    if (event.target.checked === true) {
+                        selectiveShow(".black");
+                    } else {
+                        selectiveHide(".black");
+                    }
+
+                    break;
+                case "blue":
+                case "skyblue":
+                case "lightblue":
+                case "oceanblue":
+                    if (event.target.checked === true) {
+                        selectiveShow(".blue");
+                    } else {
+                        selectiveHide(".blue");
+                    }
+
+                    break;
+                case "yellow":
+                    if (event.target.checked === true) {
+                        selectiveShow(".yellow");
+                    } else {
+                        selectiveHide(".yellow");
+                    }
+
+                    break;
+                case "pink":
+                    if (event.target.checked === true) {
+                        selectiveShow(".pink");
+                    } else {
+                        selectiveHide(".pink");
+                    }
+
+
+                    break;
+                case "green":
+                    if (event.target.checked === true) {
+                        selectiveShow(".green");
+                    } else {
+                        selectiveHide(".green");
+                    }
+
+                    break;
+                case "red":
+                    if (event.target.checked === true) {
+                        selectiveShow(".red");
+                    } else {
+                        selectiveHide(".red");
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function showItem() {
+
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <section>
+        <div class="header-box">
+            <img id="header-photo"
+                src="./png-transparent-myntra-logo-flipkart-e-commerce-others-miscellaneous-text-retail.png "
+                alt="stylesheet">
+
+            <div id="header-middle-content">
+                <input id="header-text" type="text">
+                <i class="fa fa-search"></i>
+            </div>
+            <div class="dropdown">
+                <i id="user-icon" class="fa fa-user dropdown-btn-wrapper"></i>
+                <ul class="dropdown-list-wrapper">
+                    <li>Profile</li>
+                    <li>My Order</li>
+                    <li>Log Out</li>
+                </ul>
+            </div>
+        </div>
+        <section class="middle-portion">
+            <table>
+                <tr>
+                    <td class="left-part tabel-prop-reset">
+                        <div class="left-choose-section">
+
+                            <input type="radio" id="man" name="gender" value="men" onclick="loadAparealList('men')">
+                            <label for="man">Man</label>
+                            <input type="radio" id="Woman" name="gender" value="Women"
+                                onclick="loadAparealList('women')">
+                            <label for="woman">Woman</label>
+
+                            <div class="dropdown component-upper-gap">
+                                <div class="dropdown-btn-wrapper">
+                                    <div class="dropdown-btn-label">Section </div>
+                                    <div class="dropdown-btn-caret">v</div>
+                                </div>
+                                <div class="dropdown-list-wrapper">
+                                    <ul id="gender-apparel-list">
+                                        <!-- <li>T-shirt</li>
+                                        <li>Pants</li>
+                                        <li>Trousers</li>
+                                        <li>Tops</li>
+                                        <li>Skirt</li> -->
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="left-choose-section">
+
+                            <div class="section-title">
+                                <label>Brand</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="Mongo">
+                                <label>Mongo</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="Zola">
+                                <label>Zola</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="Miss Chase">
+                                <label>Miss Chase</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" value="Denim">
+                                <label>Denim</label>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <div class="left-choose-section">
+                                <div class="section-title">
+                                    <label>Color</label>
+                                </div>
+                                <div class="color-item">
+                                    <input type="checkbox" value="Black" onclick="showDress('black', event)">
+                                    <span class="dress-color" style="background-color: black;"></span>
+                                    <label>Black</label>
+
+                                </div>
+                                <div class="color-item">
+                                    <input type="checkbox" value="Blue" onclick="showDress('blue', event)">
+                                    <span class="dress-color" style="background-color: blue;"></span>
+                                    <label>Blue</label>
+                                </div>
+                                <div class="color-item">
+                                    <input type="checkbox" value="Yellow" onclick="showDress('yellow', event)">
+                                    <span class="dress-color" style="background-color: yellow;"></span>
+                                    <label>White</label>
+                                </div>
+                                <div class="color-item">
+                                    <input type="checkbox" value="Pink" onclick="showDress('pink', event)">
+                                    <span class="dress-color" style="background-color: pink;"></span>
+                                    <label>Pink</label>
+                                </div>
+                                <div class="color-item">
+                                    <input type="checkbox" value="Green" onclick="showDress('green', event)">
+                                    <span class="dress-color" style="background-color: green;"></span>
+                                    <label>Green</label>
+                                </div>
+                                <div class="color-item">
+                                    <input type="checkbox" value="Red" onclick="showDress('red', event)">
+                                    <span class="dress-color" style="background-color: red;"></span>
+                                    <label>Red</label>
+                                </div>
+                            </div>
+
+                            <div class="left-choose-section">
+                                <div class="section-title">
+                                    <label>Prize</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="Rs 599 to Rs 799">
+                                    <label>Rs 599 to Rs 799</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="Rs 800 to Rs 1999">
+                                    <label>Rs 800 to Rs 1999</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="Rs 2000 to Rs 3999">
+                                    <label>Rs 2000 to Rs 3999</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" value="Rs 800 to Rs 1999">
+                                    <label>Rs 4000 to Rs 5999</label>
+                                </div>
+                            </div>
+
+                    </td>
+                    <td class="side-portion tabel-prop-reset">
+                        <div id="dresses-container">
+                            <!--   <img class="dress-image-item blue"
+                                src="./images/dresses/027bc8c5-c343-49d4-bdc6-bb9687ef03ab1560139075957-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/0fda2315-92f1-48d5-8954-4a78d60a0b881529045573115-NA-4921529045572949-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/1b9df8fd-214e-4e8c-a0b6-759a9167e1e61564379559418-SASSAFRAS-Women-Black-A-Line-Dress-291564379558115-1.webp">
+                            <img class="dress-image-item red"
+                                src="./images/dresses/29214ce1-9de3-49ed-a0be-915e750536f21592446500043MumbaiSlangChic1.webp">
+                            <img class="dress-image-item green"
+                                src="./images/dresses/45359a1c-5240-4837-8878-05f7f3feee4d1580197901836-SASSAFRAS-Women-Green-Solid-A-Line-Dress-9491580197899621-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/77e1b62b-c34c-4cff-a68e-f3de1c1a886a1573108038526-SASSAFRAS-Women-Black-Solid-Trench-Dress-6681573108036504-1.webp">
+                            <img class="dress-image-item blue"
+                                src="./images/dresses/97c78e8e-f54c-4c5b-907d-beaa593d703d1610984851907-1.webp">
+                            <img class="dress-image-item yellow"
+                                src="./images/dresses/31deefd9-f530-4e95-a192-31349a1f1aab1589798213486VishudhWomenYellowPrintedMaxiDress1.webp">
+                            <img class="dress-image-item pink"
+                                src="./images/dresses/32ec15d3-2067-48ab-a954-69f29b8710411612431436798-Mast--Harbour-Women-Pink-Printed-A-Line-Dress-45616124314353-1.webp">
+                            <img class="dress-image-item white"
+                                src="./images/dresses/429f0cb0-d15e-4502-b8d3-044a413c99a91582703299406-SASSAFRAS-Women-White-Self-Design-Wrap-Dress-864158270329790-1.webp">
+                            <img class="dress-image-item green"
+                                src="./images/dresses/45359a1c-5240-4837-8878-05f7f3feee4d1580197901836-SASSAFRAS-Women-Green-Solid-A-Line-Dress-9491580197899621-1.webp">
+                            <img class="dress-image-item red"
+                                src="./images/dresses/4b4374d2-0067-40c3-bc30-7a6f2d228df71564401122087-SASSAFRAS-Women-Pink-Maxi-Dress-4111564401120260-1.webp">
+                            <img class="dress-image-item yellow"
+                                src="./images/dresses/60f032a5-4501-445a-8f02-f021304e1a531612337712385-Mast--Harbour-Women-Yellow-Printed-Fit-and-Flare-Dress-35816-1.webp">
+                            <img class="dress-image-item pink"
+                                src="./images/dresses/752a04e2-1093-4243-9fcd-64c9346486bf1564401142308-SASSAFRAS-Women-Pink-Shirt-Dress-6811564401140400-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/7584b116-2a2c-4fb1-881c-af58cc484b181532944603854-Tokyo-Talkies-Women-Black-Printed-Maxi-Dress-4791532944603727-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/77e1b62b-c34c-4cff-a68e-f3de1c1a886a1573108038526-SASSAFRAS-Women-Black-Solid-Trench-Dress-6681573108036504-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/799d3b54-c899-432e-9e88-51a1b9fd7c251605182750693TopsDOROTHYPERKINSWomenSweatersDOROTHYPERKINSWomenTrousersDO1.webp">
+                            <img class="dress-image-item blue"
+                                src="./images/dresses/79b44638-5cca-44b1-b858-91cf369310e11564380201363-SASSAFRAS-Women-Blue-A-Line-Dress-9861564380199640-2.webp">
+                            <img class="dress-image-item blue"
+                                src="./images/dresses/82fda2cb-f2bf-4366-b317-2fe5fa791f0c1596018921836KSUTfuchsiaabstractprintedflaredfulllengthplacketkurtawithro5.webp">
+                            <img class="dress-image-item red"
+                                src="./images/dresses/8e31363f-8ac5-4669-9aa8-114d502d7be61580207577109-SASSAFRAS-Women-Maroon-Solid-Tiered-Maxi-Dress-3781580207574-1.webp">
+                            <img class="dress-image-item blue"
+                                src="./images/dresses/915f4c83-8c94-4ca1-8eec-deec739e59aa1546950694702-1.webp">
+                            <img class="dress-image-item blue"
+                                src="./images/dresses/97c78e8e-f54c-4c5b-907d-beaa593d703d1610984851907-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/a373d08e-a2fb-4cbf-9a19-dd9679ea0c181573032453223-Libas-Women-Dresses-7681573032451400-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/ba144278-7866-4580-aebb-de0871cf1ff81596015771364TrousersDOROTHYPERKINSWomenShortsDOROTHYPERKINSWomenSkirtsDO1.webp">
+                            <img class="dress-image-item red"
+                                src="./images/dresses/d696c0aa-1607-453d-88a3-549edf0ccb2c1575325176261-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/db52fd6a-19fc-4add-bc4b-77b8608454d01562138455279-Veni-Vidi-Vici-Women-Black-Bodycon-Dress-3841562138453419-1.webp">
+                            <img class="dress-image-item red"
+                                src="./images/dresses/de5a1e02-d817-40f3-8db9-695befc46c2f1576473716354-UF-Women-Maroon-Printed-Maxi-Dress-7821576473714711-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/e36d964f-da74-4c07-acd4-b5cb81d6ee021525933565797-na-9581525933565562-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/f0172470-408a-4b8b-a1e5-045bd98a5f8b1572938035104-SASSAFRAS-Women-Dresses-9581572938032856-1.webp">
+                            <img class="dress-image-item blue"
+                                src="./images/dresses/027bc8c5-c343-49d4-bdc6-bb9687ef03ab1560139075957-1.webp">
+                            <img class="dress-image-item black"
+                                src="./images/dresses/0fda2315-92f1-48d5-8954-4a78d60a0b881529045573115-NA-4921529045572949-1.webp">
+                            <img class="dress-image-item yellow"
+                                src="./images/dresses/186de9ed-930d-44ea-bfc3-eade945a45cb1601972381466-plusS-Women-Dresses-2041601972379069-1.webp">
+                                 -->
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+            </div>
+        </section>
+    </section>
+</body>
+
+</html>
